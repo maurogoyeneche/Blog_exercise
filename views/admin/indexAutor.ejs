@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include ("../components/head") %>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-K5F7TFV"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <!-- Navigation-->
+    <%- include ("../components/navbar") %>
+    <!-- Page Header-->
+    <header class="masthead" style="background-image: url(<%=imgRandom%>)">
+      <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+          <div class="col-md-10 col-lg-8 col-xl-7">
+            <div class="site-heading">
+              <h1><%= user.firstname %></h1>
+              <span class="subheading">List of articles of this user</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- Main Content-->
+    <div class="container">
+      <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+          <h2 class="post-title text-danger text-center">Articles</h2>
+          <!-- Post preview-->
+          <% for(let i=articles.length -1; i>=0;i--){%>
+          <!-- for -->
+          <% const article = articles[i]%>
+          <div class="post-preview">
+            <a href="/articulo/<%=article.id %> ">
+              <h2 class="post-title"><%= article.title %></h2>
+              <h3 class="post-subtitle">
+                <% let contentChiquito = article.content.substring(0,20)%> <%
+                let subtitulo = contentChiquito.substring(0,
+                contentChiquito.lastIndexOf(" ")) + "..." %> <%=subtitulo%>
+              </h3>
+            </a>
+            <p class="post-meta">
+              Posted by
+              <a href="/articulos/<%=article.userId%>"> <%=user.firstname%> </a>
+              on <%= article.createdAt %>
+            </p>
+          </div>
+          <!-- Divider-->
+          <hr class="my-4" />
+          <% } %>
+
+          <!-- Pager-->
+        </div>
+      </div>
+    </div>
+    <!-- Footer-->
+    <%- include ("../components/footer") %>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="../js/scripts.js"></script>
+  </body>
+</html>

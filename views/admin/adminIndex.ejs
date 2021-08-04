@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include ("../components/head") %>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-K5F7TFV"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <!-- Navigation-->
+    <%- include ("../components/navbar") %>
+    <!-- Page Header-->
+    <header
+      class="masthead"
+      style="background-image: url(<%=imagenFondoRandom%>)"
+    >
+      <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+          <div class="col-md-10 col-lg-8 col-xl-7">
+            <div class="site-heading">
+              <h1>El blog del team six</h1>
+              <span class="subheading">A Blog Theme by Start Bootstrap</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- Main Content-->
+    <div class="container">
+      <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+          <h2 class="post-title text-danger text-center">Admin Mode</h2>
+          <div class="text-center">
+            <a href="/admin/index/users" class="btn btn-primary">Users list</a>
+          </div>
+          <input
+            class="form-control my-3"
+            placeholder="Search an article or an author"
+            type="text"
+            id="filtro"
+          />
+
+          <!-- Post preview-->
+          <% for(let i=articles.length -1; i>=0;i--){%>
+          <!-- for -->
+          <% const article = articles[i]%>
+          <div class="row" id="article_<%=article.id%>">
+            <div class="col-12 col-md-8">
+              <div class="post-preview">
+                <a href="/admin/articulo-modify/<%=article.id %> ">
+                  <h3 class="post-subtitle">Article ID: <%=article.id %></h3>
+                  <h2 class="post-title"><%= article.title %></h2>
+                  <h4 class="post-subtitle">
+                    <% let contentChiquito = article.content.substring(0,20)%>
+                    <% let subtitulo = contentChiquito.substring(0,
+                    contentChiquito.lastIndexOf(" ")) + "..." %> <%=subtitulo%>
+                  </h4>
+                </a>
+                <p class="post-meta">
+                  Posted by
+                  <a href="/articulos/<%=article.userId%>">
+                    <%=users[article.userId -1].firstname%>
+                  </a>
+                  on <%= article.createdAt %>
+                </p>
+              </div>
+            </div>
+            <div class="col-12 col-md-4">
+              <div class="text-center mt-5">
+                <span>
+                  <a
+                    href="/admin/articulo/<%=article.id %>"
+                    class="btn btn-success mb-2 w-100 fs-6"
+                    ><i class="fas fa-edit"></i
+                  ></a>
+
+                  <button
+                    value="<%=article.id%>"
+                    class="btn btn-danger mt-2 w-100 fs-6 btnTrash"
+                    type="button"
+                    class="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            id="exampleModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">
+                    Eliminar articulo
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <p>
+                    Esta seguro que quiere eliminar el articulo de forma
+                    definitiva?
+                  </p>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    id="btn-destroy"
+                    type="button"
+                    class="btn btn-danger"
+                    data-bs-dismiss="modal"
+                  >
+                    Eiminar
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Cancelar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Divider-->
+          <hr class="my-4" />
+          <% } %>
+          <!-- Pager-->
+        </div>
+      </div>
+    </div>
+    <!-- Footer-->
+    <%- include ("../components/footer") %>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="../js/scripts.js"></script>
+    <!-- Admin script-->
+    <script src="../js/adminScript.js"></script>
+  </body>
+</html>
